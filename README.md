@@ -37,22 +37,77 @@
        │
        │  uploads files via web form
        ▼
-[File2Print Web Server]  ──────────────────────────────────────────┐
-  (Node.js / Express)                                              │
-       │                                                           │
-       │  saves to /uploads/<ClientName>-<Date>/                   │
-       ▼                                                           │
-[uploads/ folder on your machine]                                  │
-       │                                                           │
-       │  watched in real time                                      │
-       ▼                                                           │
-[file2printMonitor]  ◄─────────────────────────────────────────────┘
-  (JavaFX Desktop App)
-  → Notifies you of new submissions
-  → Displays client name, files, and timestamp
+┌─────────────────────────────────┐
+│   Docker Container              │
+│   (File2Print Web Server)       │
+│   Node.js / Express on :3000    │
+│                                 │
+│   saves to /uploads/            │
+│   <ClientName>-<Date>/          │
+└──────────────┬──────────────────┘
+               │  volume mount
+               │  (shared with host)
+               ▼
+[uploads/ folder on your machine]
+               │
+               │  watched in real time
+               ▼
+     [file2printMonitor]
+       (JavaFX Desktop App)
+       → Notifies you of new submissions
+       → Displays client name, files, and timestamp
 ```
 
-file2printMonitor is a **companion tool** — File2Print handles the intake, and file2printMonitor keeps you informed.
+file2printMonitor is a **companion tool** — File2Print runs inside Docker and handles the intake, while file2printMonitor runs natively on your desktop to keep you informed.
+
+---
+
+## 🐳 File2Print — Docker Setup (Required)
+
+file2printMonitor monitors the `uploads/` folder that **File2Print** writes to. File2Print must be running inside a **Docker container** with its `uploads/` directory mounted to a folder on your host machine — this is the folder that file2printMonitor watches.
+
+### Step 1 — Clone and set up File2Print
+
+```bash
+git clone https://github.com/cajx-it/File2Print.git
+cd File2Print
+```
+
+### Step 2 — Build the Docker image
+
+```bash
+docker build -t file2print .
+```
+
+### Step 3 — Run the container with a volume mount
+
+The key here is mounting the container's `/app/uploads` to a local folder on your machine so file2printMonitor can watch it:
+
+```bash
+docker run -d \
+  -p 3000:3000 \
+  -v /path/to/your/local/uploads:/app/uploads \
+  --name file2print \
+  file2print
+```
+
+> 💡 Replace `/path/to/your/local/uploads` with an actual folder on your machine, for example:
+> - **Windows:** `C:/Users/YourName/uploads`
+> - **macOS/Linux:** `/home/yourname/uploads`
+
+### Step 4 — Verify it's running
+
+```bash
+docker ps
+```
+
+Clients on your local network can now access the upload form at:
+
+```
+http://<your-local-ip>:3000
+```
+
+> ⚠️ **Important for file2printMonitor:** The local path you mount (e.g., `./uploads` or `C:/Users/YourName/uploads`) is the folder you will configure file2printMonitor to watch. Make sure both point to the same location.
 
 ---
 
@@ -62,7 +117,8 @@ file2printMonitor is a **companion tool** — File2Print handles the intake, and
 
 - **Java 17 or higher** — [Download JDK](https://adoptium.net/)
 - **JavaFX SDK** — [Download JavaFX](https://openjfx.io/) *(if not bundled)*
-- A running instance of **[File2Print](https://github.com/cajx-it/File2Print)** with an accessible `uploads/` directory
+- **Docker** — [Download Docker Desktop](https://www.docker.com/products/docker-desktop/) *(required to run File2Print)*
+- A running instance of **[File2Print](https://github.com/cajx-it/File2Print)** in Docker with its `uploads/` folder mounted to your host machine (see [Docker Setup](#-file2print--docker-setup-required) above)
 
 Verify your Java version:
 
@@ -115,7 +171,7 @@ java --module-path /path/to/javafx-sdk/lib --add-modules javafx.controls,javafx.
 
 ### Configuration
 
-On first launch, point file2printMonitor to your File2Print `uploads/` directory. The app will begin watching that folder immediately and display any existing or new client submissions.
+On first launch, point file2printMonitor to your **local mounted `uploads/` folder** — the same path you used as the volume mount when running the File2Print Docker container (e.g., `C:/Users/YourName/uploads` or `/home/yourname/uploads`). The app will begin watching that folder immediately and display any existing or new client submissions.
 
 ---
 
@@ -144,6 +200,8 @@ file2printMonitor/
 | Build System | Eclipse e(fx)clipse / Ant |
 | IDE | Eclipse |
 | File Watching | Java NIO WatchService |
+| Backend (File2Print) | Node.js / Express (Dockerized) |
+| Containerization | Docker / Docker Compose |
 
 ---
 
