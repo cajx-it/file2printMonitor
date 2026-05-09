@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+<StackPane
+   maxHeight="-Infinity"
+   maxWidth="-Infinity"
+   minHeight="-Infinity"
+   minWidth="-Infinity"
+   prefHeight="400.0"
+   prefWidth="600.0"
+   style="-fx-background-color: #0d0d0d;"
+   xmlns="http://javafx.com/javafx/17"
+   xmlns:fx="http://javafx.com/fxml/1"
+   fx:controller="application.controller.SettingsController">
+
+   <children>
+      <SplitPane
+         dividerPositions="0.13171140939597314"
+         orientation="VERTICAL"
+         prefHeight="400.0"
+         prefWidth="600.0"
+         style="-fx-background-color: transparent; -fx-border-color: transparent; -fx-padding: 0;">
+
+        <items>
+
+          <!-- TOP NAV BAR -->
+          <AnchorPane
+             minHeight="0.0"
+             minWidth="0.0"
+             prefHeight="100.0"
+             prefWidth="600.0"
+             style="-fx-background-color: #0d0d0d; -fx-border-color: transparent transparent #1f1f1f transparent; -fx-border-width: 0 0 1 0;">
+
+               <children>
+                  <HBox
+                     alignment="CENTER_LEFT"
+                     prefHeight="52.0"
+                     prefWidth="600.0"
+                     spacing="0.0"
+                     style="-fx-padding: 0 16 0 16;">
+                     <children>
+
+                        <!-- APP TITLE -->
+                        <VBox alignment="CENTER_LEFT" spacing="1.0">
+                           <children>
+                              <Label
+                                 text="FILE2PRINT"
+                                 style="-fx-text-fill: #ffffff; -fx-font-size: 13px; -fx-font-weight: bold; -fx-font-family: 'Courier New';" />
+                              <Label
+                                 text="MONITOR"
+                                 style="-fx-text-fill: #4fff1e; -fx-font-size: 9px; -fx-font-family: 'Courier New';" />
+                           </children>
+                        </VBox>
+
+                        <Region HBox.hgrow="ALWAYS" />
+
+                        <!-- NAV BUTTONS -->
+                        <HBox spacing="4.0" alignment="CENTER">
+                           <children>
+                           
+                              <Button fx:id="status" onAction="#docker" style="-fx-background-color: transparent; -fx-text-fill: #f22929; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 6 14 6 14; -fx-border-color: #f22929; -fx-border-width: 1; -fx-border-radius: 2; -fx-cursor: hand;" text="NOT RUNNING" />
+
+                              <Button
+                                 fx:id="btnTodo"
+                                 onAction="#todo"
+                                 text="TO-DO"
+                                 style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 6 14 6 14; -fx-border-color: #222222; -fx-border-width: 1; -fx-border-radius: 2; -fx-cursor: hand;" />
+                              <Button
+                                 fx:id="btnDone"
+                                 onAction="#done"
+                                 text="DONE"
+                                 style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 6 14 6 14; -fx-border-color: #222222; -fx-border-width: 1; -fx-border-radius: 2; -fx-cursor: hand;" />
+                              <Button
+                                 fx:id="btnRejected"
+                                 onAction="#reject"
+                                 text="REJECTED"
+                                 style="-fx-background-color: transparent; -fx-text-fill: #555555; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 6 14 6 14; -fx-border-color: #222222; -fx-border-width: 1; -fx-border-radius: 2; -fx-cursor: hand;" />
+                              
+                              <Button
+                                 fx:id="btnSettings"
+                                 text="⚙ SETTINGS"
+                                 style="-fx-background-color: #4fff1e; -fx-text-fill: #0d0d0d; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 6 14 6 14; -fx-cursor: hand;" />
+                              <Region prefWidth="8.0" />
+                              <Button fx:id="refresh"  onAction="#initialize" style="-fx-background-color: #1a1a1a; -fx-text-fill: #4fff1e; -fx-font-size: 14px; -fx-background-radius: 2; -fx-padding: 4 10 4 10; -fx-border-color: #2a2a2a; -fx-border-width: 1; -fx-border-radius: 2; -fx-cursor: hand;" text="↺" />
+                           </children>
+                        </HBox>
+
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+
+          <!-- CONTENT AREA -->
+          <AnchorPane
+             minHeight="0.0"
+             minWidth="0.0"
+             prefHeight="100.0"
+             prefWidth="600.0"
+             style="-fx-background-color: #0d0d0d;">
+
+               <children>
+                  <VBox
+                     prefHeight="348.0"
+                     prefWidth="600.0"
+                     spacing="0.0"
+                     style="-fx-padding: 28 32 28 32;">
+                     <children>
+
+                        <!-- SECTION TITLE + CONFIGURE BUTTON -->
+                        <HBox alignment="CENTER_LEFT" spacing="12.0" style="-fx-padding: 0 0 20 0;">
+                           <children>
+                              <Label
+                                 text="PATHS &amp; CONFIGURATION"
+                                 style="-fx-text-fill: #4fff1e; -fx-font-size: 10px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                              <Button
+                                 fx:id="configureBtn"
+                                 onAction="#configure"
+                                 text="CONFIGURE"
+                                 style="-fx-background-color: transparent; -fx-text-fill: #FFAF10; -fx-font-size: 9px; -fx-font-family: 'Courier New'; -fx-font-weight: bold; -fx-border-color: #FFAF10; -fx-border-width: 1; -fx-border-radius: 2; -fx-background-radius: 2; -fx-padding: 3 10 3 10; -fx-cursor: hand;" />
+                           </children>
+                        </HBox>
+
+                        <!-- TODO PATH -->
+                        <VBox spacing="6.0" style="-fx-padding: 0 0 16 0;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label text="●" style="-fx-text-fill: #4fff1e; -fx-font-size: 7px;" />
+                                    <Label text="TODO PATH" style="-fx-text-fill: #888888; -fx-font-size: 10px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                                 </children>
+                              </HBox>
+                              <TextField
+                                 fx:id="todoPath"
+                                 prefWidth="536.0"
+                                 style="-fx-background-color: #111111; -fx-text-fill: #e0e0e0; -fx-font-size: 11px; -fx-font-family: 'Courier New'; -fx-border-color: #1f1f1f; -fx-border-width: 1; -fx-border-radius: 2; -fx-background-radius: 2; -fx-padding: 8 12 8 12;" />
+                           </children>
+                        </VBox>
+
+                        <!-- DONE PATH -->
+                        <VBox spacing="6.0" style="-fx-padding: 0 0 16 0;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label text="●" style="-fx-text-fill: #4fff1e; -fx-font-size: 7px;" />
+                                    <Label text="DONE PATH" style="-fx-text-fill: #888888; -fx-font-size: 10px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                                 </children>
+                              </HBox>
+                              <TextField
+                                 fx:id="donePath"
+                                 prefWidth="536.0"
+                                 style="-fx-background-color: #111111; -fx-text-fill: #e0e0e0; -fx-font-size: 11px; -fx-font-family: 'Courier New'; -fx-border-color: #1f1f1f; -fx-border-width: 1; -fx-border-radius: 2; -fx-background-radius: 2; -fx-padding: 8 12 8 12;" />
+                           </children>
+                        </VBox>
+
+                        <!-- REJECTED PATH -->
+                        <VBox spacing="6.0" style="-fx-padding: 0 0 16 0;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label text="●" style="-fx-text-fill: #ff4444; -fx-font-size: 7px;" />
+                                    <Label text="REJECTED PATH" style="-fx-text-fill: #888888; -fx-font-size: 10px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                                 </children>
+                              </HBox>
+                              <TextField
+                                 fx:id="rejectedPath"
+                                 prefWidth="536.0"
+                                 style="-fx-background-color: #111111; -fx-text-fill: #e0e0e0; -fx-font-size: 11px; -fx-font-family: 'Courier New'; -fx-border-color: #1f1f1f; -fx-border-width: 1; -fx-border-radius: 2; -fx-background-radius: 2; -fx-padding: 8 12 8 12;" />
+                           </children>
+                        </VBox>
+
+                        <!-- SOUND PATH -->
+                        <VBox spacing="6.0" style="-fx-padding: 0 0 24 0;">
+                           <children>
+                              <HBox alignment="CENTER_LEFT" spacing="8.0">
+                                 <children>
+                                    <Label text="●" style="-fx-text-fill: #ffaa00; -fx-font-size: 7px;" />
+                                    <Label text="SOUND FILE" style="-fx-text-fill: #888888; -fx-font-size: 10px; -fx-font-family: 'Courier New'; -fx-font-weight: bold;" />
+                                 </children>
+                              </HBox>
+                              <TextField
+                                 fx:id="soundPath"
+                                 prefWidth="536.0"
+                                 style="-fx-background-color: #111111; -fx-text-fill: #e0e0e0; -fx-font-size: 11px; -fx-font-family: 'Courier New'; -fx-border-color: #1f1f1f; -fx-border-width: 1; -fx-border-radius: 2; -fx-background-radius: 2; -fx-padding: 8 12 8 12;" />
+                           </children>
+                        </VBox>
+
+                        <!-- DIVIDER -->
+                        <Region prefHeight="1.0" prefWidth="536.0" style="-fx-background-color: #1a1a1a;" />
+
+                        <!-- SAVE ROW -->
+                        <HBox alignment="CENTER_RIGHT" style="-fx-padding: 16 0 0 0;" spacing="8.0">
+                           <children>
+                              <Label
+                                 fx:id="statusLabel"
+                                 text=""
+                                 style="-fx-text-fill: #4fff1e; -fx-font-size: 10px; -fx-font-family: 'Courier New';" />
+                              <Region HBox.hgrow="ALWAYS" />
+                              <Button
+                                 fx:id="saveBtn"
+                                 text="SAVE SETTINGS"
+                                 style="-fx-background-color: #4fff1e; -fx-text-fill: #0d0d0d; -fx-font-size: 10px; -fx-font-weight: bold; -fx-font-family: 'Courier New'; -fx-background-radius: 2; -fx-padding: 8 20 8 20; -fx-cursor: hand;" />
+                           </children>
+                        </HBox>
+
+                     </children>
+                  </VBox>
+               </children>
+            </AnchorPane>
+
+        </items>
+      </SplitPane>
+   </children>
+</StackPane>
