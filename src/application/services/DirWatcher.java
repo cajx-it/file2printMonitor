@@ -28,6 +28,7 @@ public class DirWatcher {
                     WatchKey key = watchService.take(); 
 
                     for (WatchEvent<?> event : key.pollEvents()) {
+                    	
                         WatchEvent.Kind<?> kind = event.kind();
                         String name = event.context().toString(); 
 
@@ -42,10 +43,11 @@ public class DirWatcher {
                             System.out.println("CREATED: " + name);
 
                         }else if(kind == StandardWatchEventKinds.ENTRY_DELETE) {
+                        	
                         	Platform.runLater(() ->
-                            
+                      
                         	LiveController.instance.refresh()
-                        );
+                        	);
                         	System.out.println("DELETED: " + name);
                         }
                     }

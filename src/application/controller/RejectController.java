@@ -36,17 +36,18 @@ public class RejectController {
     
     //NAVIGATION AND OPEN FOLDER
     public void todo(ActionEvent event) throws IOException {
-    	Navigate.NavigateTodo(event);
-    }
-    
-    public void settings(ActionEvent event) throws IOException {
-    	Navigate.NavigateSettings(event);
+    	Navigate.Navigate(event, 1);
     }
     
     public void done(ActionEvent event) throws IOException {
-    	Navigate.NavigateDone(event);
+    	Navigate.Navigate(event, 2);
     }
     
+    public void settings(ActionEvent event) throws IOException {
+    	Navigate.Navigate(event, 4);
+    }
+    
+
     public static  void OpenFolder(MouseEvent event) {
     	Navigation.NavigateOpenFolder(event);
     }

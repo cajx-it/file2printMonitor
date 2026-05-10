@@ -46,15 +46,15 @@ public class LiveController {
    
     //NAVIGATION AND OPEN FOLDER
     public void done(ActionEvent event) throws IOException {
-    	Navigate.NavigateDone(event);
+    	Navigate.Navigate(event, 2);
     }
     
     public void reject(ActionEvent event) throws IOException {
-    	Navigate.NavigateReject(event);
+    	Navigate.Navigate(event, 3);
     }
     
     public void settings(ActionEvent event) throws IOException {
-    	Navigate.NavigateSettings(event);
+    	Navigate.Navigate(event, 4);
     }
     
     public static  void OpenFolder(MouseEvent event) {

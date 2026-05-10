@@ -25,15 +25,18 @@ public class Settings {
 	public static void CheckChanges() {
 		
 		Properties props = new Properties();
+		
 		try {
 			props.load(new FileInputStream("src\\application\\settings\\Config.properties"));
 		} catch (FileNotFoundException e) {
 			
 			e.printStackTrace();
+			
 		} catch (IOException e) {
 			
 			e.printStackTrace();
 		}
+		
 		
 		if(props.getProperty("todo").equals(Settings.LastTodo) && props.getProperty("reject").equals(Settings.LastReject) && props.getProperty("done").equals(Settings.LastDone) && props.getProperty("notif").equals(Settings.LastSound)) {
 			System.out.println("Settings not change!");

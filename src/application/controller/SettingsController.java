@@ -37,17 +37,18 @@ public class SettingsController {
     
     //NAVIGATION AND OPEN FOLDER
     public void todo(ActionEvent event) throws IOException {
-    	Navigate.NavigateTodo(event);
-    }
-    
-    public void reject(ActionEvent event) throws IOException {
-    	Navigate.NavigateReject(event);
+    	Navigate.Navigate(event, 1);
     }
     
     public void done(ActionEvent event) throws IOException {
-    	Navigate.NavigateDone(event);
+    	Navigate.Navigate(event, 2);
     }
     
+    public void reject(ActionEvent event) throws IOException {
+    	Navigate.Navigate(event, 3);
+    }
+    
+
     public void configure() {
     	FileOpen.open("src/application/settings/Config.properties");
     }
